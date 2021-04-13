@@ -1,0 +1,145 @@
+body {
+    font-family: helvetica;
+    margin: 10px;
+    width: 60%;
+    margin: auto;
+    color: #05445E;
+}
+
+.head {
+    width: 60%;
+    margin: auto;
+    margin-top: 100px;
+    border: 10px solid #05445E;
+}
+
+.head h1 {
+    text-align: center;
+}
+.form {
+    margin-top: 50px;
+}
+.name {
+
+width: 50%;
+margin: auto;
+
+}
+.langCount {
+    display: flex;
+    width: 100%;
+}
+
+.name label {
+    font-weight: bold;
+    font-size: 25px;
+    margin-right: 20px;
+    
+
+}
+.formName{
+    margin-bottom: 50px;
+}
+.enterName {
+    width: 60%;
+    padding: 20px;
+}
+.radioLang {
+    display: flex;
+    width: 60%;
+    float: left;
+}
+.lang {
+    width: 50%;
+}
+button {
+    margin-top: 20px;
+    width: 120%;
+ 
+    padding: 20px;
+    border: 1px;
+    color: white;
+    border-color: #05445E;
+    background-color: #05445E;
+}
+.buttons {
+    width: 120%;
+   margin: auto;
+}
+.counter {
+    width: 50px;
+    font-weight: 900;
+    font-size: 60px;
+    padding-top: 100px;
+}
+
+.output {
+    width: 30%;
+    margin: auto;
+    margin-top: 120px;
+    font-size: 30px;
+}
+
+@media (min-width: 270px){
+    .head {
+        width: 100%;
+        margin-top: 50px;
+    }
+    .name {
+        display: block;
+        width: 100%;
+        margin: auto;
+        }
+        .enterName{
+           
+            width: 80%;
+            float: right;
+            margin-bottom: 40px;
+        }
+        .formName {
+            margin-top: 40px;
+            width: 100%;
+        }
+
+        .radioLang {
+            display: block;
+            padding: 20px;
+        }
+
+        .radioLang label{
+            font-weight: lighter;
+            font-size: 15px;
+        }
+        .getName {
+            width: 40%;
+            margin-top: 20px;
+            float: right;
+            text-transform: uppercase;
+            margin: auto;
+        }
+
+        .clearCount {
+            width: 40%;
+            margin-top: 20px;
+            float: left;
+            margin: auto;
+        }
+        .buttons {
+            display: flex;
+            width: 100%;
+            margin: auto;
+        }
+
+
+        .counter {
+           margin: auto;
+           width: 50;
+        }
+        .output {
+            width: 100%;
+            margin-top: 50px;
+            margin-left: 5px;
+
+        }
+    
+}
