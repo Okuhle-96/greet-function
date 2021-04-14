@@ -48,7 +48,7 @@ function greetFunction() {
             }
 
             names[userInput.value] = 1;
-        } else if (names.hasOwnProperty(trim)){
+        } else if (names.hasOwnProperty(name)){
 
         }
 
