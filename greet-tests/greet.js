@@ -18,7 +18,7 @@ function greetFunction() {
     
     var selectLanguage = document.querySelector("input[name='langauge']:checked");
 
-    var trim = userInput.value.trim();
+    var name = userInput.value.trim();
 
    
     
@@ -26,14 +26,14 @@ function greetFunction() {
         
     } else {
 
-        if (names[trim] === undefined) {
+        if (names[name] === undefined) {
 
             if (!selectLanguage) {
-                returnUser.innerHTML = trim + " !";
+                returnUser.innerHTML = name;
                 counter++;
             } else if (selectLanguage) {
 
-                returnUser.innerHTML = trim + " !";
+                returnUser.innerHTML = name;
 
                 if (selectLanguage.value === "isixhosa") {
                     greetUser.innerHTML = greetInIsixhosa;
