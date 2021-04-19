@@ -1,10 +1,12 @@
 function greetFactoryFunction(){
 
-    var alphabets = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];= ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
-
+    var alphabets = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
+    
     var theName = "";
     var theNameObject = {};
     var theCounter = 0;
+
+   var nameExists = "This name already exist!"
 
     var theXhosa = "Mholo, ";
     var theTsonga = "Ahee, ";
@@ -28,28 +30,44 @@ function greetFactoryFunction(){
     function setLanguage(language){
         if(!language){
             return "Please select your language!";
-        }else if (language === ){
-                greetIsiXhosa;
-        }if(language === greetSesotho){}
-
-
+        }if (language === 'isixhosa'){
+                greetIsiXhosa + getName();
+                theCounter++;
+        }if(language === "sesotho"){
+            greetSesotho + getName();
+            theCounter++;
+        }if (language === "xitsonga"){
+            greetXitsonga;
+            theCounter++;
+        }else if(userInput = ""){
+            return "this"
+        }
+        names[userInput.value] = 1;
     }
 
-    function setCounter(){
+    function setCounter(userInput) {
         
-    }
-   
-
+            if (theNameObject[userInput] === undefined) {
+                theCounter++;
+                theNameObject[userInput] = 1;       
+            } else if (theNameObject.hasOwnProperty(userInput)){
+                return "This name already exists!";
+            }if (theNameObject[userInput] === ""){
+                return "Nothing to add!"
+            }
+            theNameObject[userInput] = 1;
+        }
+    
     function greetIsiXhosa(){
-        return theXhosa + theName;
+        return theXhosa + getName();
     }
 
     function greetSesotho(){
-        return theSotho + theName;
+        return theSotho + getName();
     }
 
     function greetXitsonga(){
-        return theTsonga + theName;
+        return theTsonga + getName();
     }
 
     function getName(){
@@ -61,13 +79,30 @@ function greetFactoryFunction(){
             return "Please enter yor name!";
         }if (userInput === !alphabets){
             return "Please enter a valid name!";
-        }if (useInput === th){
-            return "This name already exists!"
+        }if (userInput === theNameObject.hasOwnProperty(userInput)){
+            return nameExists;
         }
     }
 
     function getCounter(){
         return theCounter;
+    }
+
+    function setLocalStorage(){
+        localStorage['usersGreeted'] = counter;
+        localStorage.setItem("userNames", JSON.stringify(names));
+    }
+
+    function getItem(){
+        if (localStorage['usersGreeted'] && localStorage['userNames']) {
+            theCounter = Number(localStorage['usersGreeted']);
+            theNameObject = JSON.parse((localStorage['userNames']));
+            }
+    }
+
+    function clearCounter(){
+        theCounter = 0;
+        theNameObject = {};
     }
 
 
@@ -86,9 +121,13 @@ function greetFactoryFunction(){
         greetSesotho,
         greetXitsonga,
 
+        setLanguage,
         getCounter,
-        getName
+        getName,
 
+        setLocalStorage,
+        getItem,
+        clearCounter
 
     }
 

@@ -29,6 +29,7 @@ nameListDiv.innerHTML = "People Greeted";
 function greetFunction() {
 
     var alphabets = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
+    var numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0];
     var selectLanguage = document.querySelector("input[name='langauge']:checked");
 
     var name = userInput.value.trim();
@@ -36,7 +37,10 @@ function greetFunction() {
    
     
     if (userInput.value === "") {
-        noValue.innerHTML = "Please enter your name!"
+        setTimeout(function(){
+        }, 2000);
+        noValue.innerHTML = "Please enter your name!";
+      
     } else {
 
         if (names[name] === undefined) {
@@ -44,37 +48,31 @@ function greetFunction() {
             
             if (!selectLanguage) {
                 noValue.innerHTML = "Please select your language!";
-                // counter++;
-            } else if (!selectLanguage && userInput.value === ""){
-                noValue.innerHTML = "Please select your language enter your name!"
-            }else if (selectLanguage) {
+            }if (!alphabets){
+                noValue.innerHTML = "Please enter a valid name!";
+            }
+                else if (selectLanguage) {
 
                 returnUser.innerHTML = name;
-                nameList.innerHTML = name;
+               
                 if (selectLanguage.value === "isixhosa") {
                     greetUser.innerHTML = greetInIsixhosa;
-                    //namesGreeted.push(names);
-                    namesGreeted++;
                     counter++;
                 } else if (selectLanguage.value === "sesotho") {
                     greetUser.innerHTML = greetInSesotho;
-                    namesGreeted++;
                     counter++;
                 } if (selectLanguage.value === "xitsonga") {
                     greetUser.innerHTML = greetInXitsonga;
-                    namesGreeted++;
                     counter++;
                 } 
             }
-
-            names[userInput.value] = 1;
+            
             namesGreeted[userInput.value] = names;
+            nameList.innerHTML = name;
+            names[userInput.value] = 1;
         } else if (names.hasOwnProperty(name)){
-            noValue.innerHTML = "This name already exists!";
+             noValue.innerHTML = "This name already exists!";
 
-        }if (name != alphabets){
-            noValue.innerHTML = "Please enter a valid name!";
-        
         }
 
     }
@@ -99,11 +97,11 @@ countUsers.innerHTML = localStorage['usersGreeted'];
 if (localStorage['userNames']){
 
     localStorage.getItem('userNames', JSON.stringify(names));
+    namesGreeted = JSON.parse(localStorage['userNames']);
 
 }
 
 nameList.innerHTML = "";
-
 
 function clearNumberFunction() {
     counter = 0;
@@ -115,4 +113,6 @@ function clearNumberFunction() {
     names = {};  
 }
 clearUserBtn.addEventListener('click', clearNumberFunction);
+
+
 
