@@ -24,7 +24,7 @@ var greetInIsixhosa = "Mholo, ";
 var greetInSesotho = "Dumelang, ";
 var greetInXitsonga = "Ahee, ";
 
-nameListDiv.innerHTML = "People Greeted";
+// nameListDiv.innerHTML = "People Greeted";
 
 function greetFunction() {
 
@@ -37,9 +37,11 @@ function greetFunction() {
    
     
     if (userInput.value === "") {
-        setTimeout(function(){
-        }, 2000);
+        
         noValue.innerHTML = "Please enter your name!";
+        setTimeout(function(){
+            noValue.innerHTML = "";
+        }, 2000);
       
     } else {
 
@@ -48,8 +50,16 @@ function greetFunction() {
             
             if (!selectLanguage) {
                 noValue.innerHTML = "Please select your language!";
+                setTimeout(function(){
+                    noValue.innerHTML = "";
+                }, 2000);
+              
             }if (!alphabets){
                 noValue.innerHTML = "Please enter a valid name!";
+                setTimeout(function(){
+                    noValue.innerHTML = "";
+                }, 2000);
+              
             }
                 else if (selectLanguage) {
 
@@ -68,11 +78,13 @@ function greetFunction() {
             }
             
             namesGreeted[userInput.value] = names;
-            nameList.innerHTML = name;
+            // nameList.innerHTML = name;
             names[userInput.value] = 1;
         } else if (names.hasOwnProperty(name)){
              noValue.innerHTML = "This name already exists!";
-
+             setTimeout(function(){
+                noValue.innerHTML = "";
+            }, 2000);    
         }
 
     }
