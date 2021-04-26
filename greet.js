@@ -1,194 +1,105 @@
-var userInput = document.querySelector(".enterName");
-var greetUser = document.querySelector(".greet");
-var returnUser = document.querySelector(".setOutput");
-var noValue = document.querySelector(".error");
+// inputs
+var userInput = "";
+var languageSelected = "";
 
-var greetUserBtn = document.querySelector(".getName");
-var clearUserBtn = document.querySelector(".clearCount")
+// buttons
+var greetBtn = document.querySelector('.getName');
+var clearCountBtn = document.querySelector('.clearCount');
 
-var countUsers = document.querySelector(".counter");
+// messages
+var greetMsg = document.querySelector('.output');
+var nextMsg = document.querySelector('.joined');
+var fullMsg = document.querySelector('.message');
 
-var nameList = document.querySelector(".names")
-var nameListDiv = document.querySelector(".namesGreeted")
+// localStorage-vibes
+var count = document.querySelector('.count');
+var errors = document.querySelector('.error')
+var peopleGreeted = document.querySelector('.greeted');
 
-var counter = 0;
+// creating an instance
+var greetInstanceFactory = greetFactoryFunction();
 
-var names = {};
-var namesGreeted = {};
+if (localStorage['countUsers']) {
+    numGreeted = Number(localStorage['countUsers']);
+}
 
-var xhosaUsers = 0;
-var sothoUsers = 0;
-var tsonga = 0;
+if(localStorage['greetedUsers']) {
+    namesGreeted = JSON.parse(localStorage.getItem('greetedUsers'));
+}
 
-var greetInIsixhosa = "Mholo, ";
-var greetInSesotho = "Dumelang, ";
-var greetInXitsonga = "Ahee, ";
+count.innerHTML = greetInstanceFactory.setCounter();
 
-nameListDiv.innerHTML = "People Greeted";
 
-function greetFunction() {
+if(localStorage['greetedUsers']) {
+    peopleGreeted.classList.remove("hide");
+}
 
-    var alphabets = /[a-zA-Z]\d+/;
-    // var numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0];
-    var selectLanguage = document.querySelector("input[name='langauge']:checked");
-
-    var name = userInput.value.trim();
-    
-    if (userInput.value === "") {
-        
-        noValue.innerHTML = "Please enter your name!";
-        setTimeout(function(){
-            noValue.innerHTML = "";
-        }, 3000);
-      
-    }else if(userInput.value === "" && !selectLanguage){
-        noValue.innerHTML = "Please enter your name and select your language!";
-        setTimeout(function(){
-            noValue.innerHTML = "";
-        }, 3000);
-    }if (!alphabets){
-        return "Invalid name"
-    } else {
-
-        if (names[name] === undefined) {
-
-            
-            if (!selectLanguage) {
-                noValue.innerHTML = "Please select your language!";
-                setTimeout(function(){
-                    noValue.innerHTML = "";
-                }, 3000);
-                if (userInput.value === "" ) {
-        
-                    noValue.innerHTML = "Please enter your name!";
-                    setTimeout(function(){
-                        noValue.innerHTML = "";
-                    }, 3000);}
-              
-            }if (!selectLanguage && userInput.value === ""){
-                noValue.innerHTML = "Please enter your name and select your language!";
-                setTimeout(function(){
-                    noValue.innerHTML = "";
-                }, 3000);
-              
-            }
-                else if (selectLanguage) {
-
-                returnUser.innerHTML = name;
-               
-                if (selectLanguage.value === "isixhosa") {
-                    greetUser.innerHTML = greetInIsixhosa;
-                    counter++;
-                } else if (selectLanguage.value === "sesotho") {
-                    greetUser.innerHTML = greetInSesotho;
-                    counter++;
-                } if (selectLanguage.value === "xitsonga") {
-                    greetUser.innerHTML = greetInXitsonga;
-                    counter++;
-                } 
-            }
-            
-            namesGreeted[userInput.value] = names;
-            // nameList.innerHTML = names;
-            // console.log(names);
-            
-            names[userInput.value] = 1;
-        } else if (names.hasOwnProperty(name)){
-             noValue.innerHTML = "This name already exists!";
-             setTimeout(function(){
-                noValue.innerHTML = "";
-            }, 3000);    
-        }
-
+function greet(){
+    if (count.classList.contains("error")) {
+        count.classList.remove("error");
     }
-    countUsers.innerHTML = counter;
-    userInput.value = "";
+    userInput = document.querySelector('.name').value;
+    var regex = /[^A-z]/g;
     
-    localStorage['usersGreeted'] = counter;
-    localStorage.setItem("userNames", JSON.stringify(names));
-
-    deselectRadioBtns();
-    getAndDisplayNames();
-    validateInput();
-}
-
-greetUserBtn.addEventListener('click', greetFunction);
-
-if (localStorage['usersGreeted']) {
-    counter = Number(localStorage['usersGreeted']);
-}
-
-countUsers.innerHTML = localStorage['usersGreeted'];
-
-
-if (localStorage['userNames']){
-
-    localStorage.getItem('userNames', JSON.stringify(names));
-    namesGreeted = JSON.parse(localStorage['userNames']);
-}
-
-// nameList.innerHTML = "";
-
-function clearNumberFunction() {
-    counter = 0;
-    localStorage['usersGreeted'] = counter;
-    returnUser.innerHTML = "";
-    greetUser.innerHTML = "";
-    countUsers.innerHTML = counter;
-
-    names = {};  
-}
-
-clearUserBtn.addEventListener('click', clearNumberFunction);
-
-
-
-// Displaying the names from the local storage.
-function getAndDisplayNames() {
-    // FIRST, WE CREATE AN UNORDERED LIST (ul) THAT WILL HOLD ALL THE NAMES
-    var peopleGreetedList = document.createElement('ul');
-    peopleGreetedList.className = 'names';
-    // HERE, WE APPEND THE peopleGreetedList TO THE nameListDiv
-    nameListDiv.append(peopleGreetedList);
-
-    //  HERE, WE GET ALL THE NAMES IN LOCAL STORAGE
-    var localStorageNames = JSON.parse(localStorage.getItem('userNames'));
-    
-    // Object.keys() FUNCTION MAKES AN ARRAY OF THE "keys" IN THE OBJECT, SO THAT ITS EASIER TO LOOP THROUGH
-    const namesGreeted = Object.keys(localStorageNames)    
-
-    // NOW, WE LOOP THROUGH THE LIST OF NAMES AND DISPLAY THEM TO THE USER
-    namesGreeted.forEach(name => {
-        peopleGreetedList.innerHTML += `<li>${name}</li>`;    
-    });
-}
-
-// getAndDisplayNames();
-
-// Using the regex thingy to make sure that the code does not take numbers and characters and also does not mix them together. 
-
-// Also I need an error that will return"Please enter your name and select your language.
-
-// And after the name has been greeted. The language needs to be deselected.
-// THIS FUNCTION WILL DESELECT ANY RADIO BUTTON THAT IS CHECKED
-function deselectRadioBtns() {
-    // GET ALL THE RADIO INPUTS 
-    var radios = document.querySelectorAll("[type='radio']");
-
-    // LOOP THROUGH THE ARRAY
-    radios.forEach(radio => {
-        if(radio.checked == true) radio.checked = false;
-    });
-}
-
-function validateInput() {
-    var name = userInput.value;
-    var alphabets = /[a-zA-Z]\d+/;
-    for (var i = 0; i < name.length; i++){
-        if (name !== alphabets){
-            return "PLease enter a valid name!";
-        }else if (name.includes(alphabets)){
-            return name;
-        }
+    try {
+        if(userInput === "" && document.querySelector(".language:checked") === null) throw "Please enter your name and select your language!";
+        if(regex.test(userInput.trim())) throw "Invalid name!";
+        if(userInput === "") throw "Please enter your name!";
+        if(document.querySelector(".language:checked") === null) throw "Please select your language!";
     }
+    
+    catch(err) {
+        errors.innerHTML = err;
+        setTimeout(function(){
+            errors.innerHTML= "";
+        }, 3000);
+        errors.classList.add("error");
+        if (count.classList.contains("hide")) {
+            count.classList.remove("hide");
+            fullMsg.classList.add("hide");
+        }
+        document.querySelector('.name').value = "";
+        return;
+    }
+
+    languageSelected = document.querySelector(".language:checked").value;
+    
+    greetMsg.innerHTML = greetInstanceFactory.greetUser(userInput,languageSelected);
+    nextMsg.innerHTML = greetInstanceFactory.additionalMsg();
+
+        if (fullMsg.classList.contains("hide")) {
+            count.classList.add("hide");
+            fullMsg.classList.remove("hide");
+            }
+
+        document.querySelector('.name').value = "";
+        document.querySelector(".language:checked").checked = false;
+
+        count.innerHTML = greetInstanceFactory.setCounter();
+
+        localStorage.setItem('greetedUsers', JSON.stringify(namesGreeted));
+        localStorage.setItem('countUsers',numGreeted);
+        if (peopleGreeted.classList.contains("hide")) {
+            peopleGreeted.classList.remove("hide");
+            }
+
 }
+greetBtn.addEventListener('click', greet);
+
+
+
+function clearCountFunction(){
+    greetInstanceFactory.clearCount();
+    count.innerHTML = 0;
+    
+    if (count.classList.contains("hide")) {
+        count.classList.remove("hide");
+        fullMsg.classList.add("hide");
+        }
+        if (!peopleGreeted.classList.contains("hide")) {
+            peopleGreeted.classList.add("hide");
+            }
+}
+clearCountBtn.addEventListener('click', clearCountFunction);
+
+
